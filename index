@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JP Campbell — Built for the Kingdom</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#050505;color:#f0ece3;font-family:'Playfair Display',Georgia,serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+:root{
+–g:#c8920e;–g2:#dca82a;–gh:#f5d060;–gp:#fae9a0;
+–gd:rgba(200,146,14,.08);–gm:rgba(200,146,14,.22);–gg:rgba(200,146,14,.35);
+–t:#00c4b4;–th:#00e8d6;–td:rgba(0,196,180,.08);–tm:rgba(0,196,180,.22);
+–black:#050505;–panel:#0d0d0d;
+–border:rgba(255,255,255,.06);–border-hi:rgba(255,255,255,.1);
+–w:#f0ece3;–c:#c8c4ba;–mu:#5a5a54;–mh:#909088;
+}
+
+.noise{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=’.85’ numOctaves=‘4’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=’.04’/%3E%3C/svg%3E”);background-size:180px;opacity:.5;}
+
+/* ══ COVER ══ */
+.cover{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;background:var(–black);}
+
+.cover-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,146,14,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(200,146,14,.06) 1px,transparent 1px);background-size:44px 44px;transform:perspective(400px) rotateX(28deg) translateY(15%) scale(1.8);transform-origin:50% 100%;animation:gridPull 16s linear infinite;mask-image:linear-gradient(to top,black 0%,transparent 50%);-webkit-mask-image:linear-gradient(to top,black 0%,transparent 50%);}
+@keyframes gridPull{from{background-position:0 0;}to{background-position:0 44px;}}
+
+.cover-glow{position:absolute;top:10%;left:50%;transform:translateX(-50%);width:min(120vw,700px);height:min(120vw,700px);background:radial-gradient(circle,rgba(200,146,14,.15) 0%,rgba(0,196,180,.07) 45%,transparent 70%);pointer-events:none;animation:breathe 6s ease-in-out infinite;}
+@keyframes breathe{0%,100%{opacity:.7;transform:translateX(-50%) scale(1);}50%{opacity:1;transform:translateX(-50%) scale(1.07);}}
+
+.beams{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.bm{position:absolute;top:-20%;bottom:-20%;width:1px;transform-origin:top;}
+.bm:nth-child(1){left:10%;background:linear-gradient(to bottom,transparent,rgba(200,146,14,.2),transparent);transform:rotate(8deg);animation:bmFade 7s 0s ease-in-out infinite;}
+.bm:nth-child(2){left:32%;background:linear-gradient(to bottom,transparent,rgba(0,196,180,.14),transparent);transform:rotate(4deg);animation:bmFade 9s 2s ease-in-out infinite;}
+.bm:nth-child(3){right:28%;background:linear-gradient(to bottom,transparent,rgba(200,146,14,.16),transparent);transform:rotate(-6deg);animation:bmFade 8s 4s ease-in-out infinite;}
+.bm:nth-child(4){right:8%;background:linear-gradient(to bottom,transparent,rgba(0,196,180,.12),transparent);transform:rotate(-12deg);animation:bmFade 6s 1s ease-in-out infinite;}
+@keyframes bmFade{0%,100%{opacity:0;}40%,60%{opacity:1;}}
+
+.scan{position:absolute;left:0;right:0;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(200,146,14,.45) 40%,rgba(0,196,180,.35) 60%,transparent);animation:scanDown 12s linear infinite;top:0;}
+@keyframes scanDown{0%{top:-2px;opacity:0;}5%{opacity:1;}95%{opacity:.5;}100%{top:100%;opacity:0;}}
+
+.topbar{position:absolute;top:0;left:0;right:0;height:4px;z-index:3;background:linear-gradient(90deg,var(–t),var(–g),var(–gh),var(–g),var(–t));background-size:300% 100%;animation:topBar 3s linear infinite;}
+@keyframes topBar{0%{background-position:100% 0;}100%{background-position:-200% 0;}}
+
+.cover-top{position:relative;z-index:2;padding:clamp(36px,9vw,64px) clamp(24px,7vw,48px) 0;}
+.c-eyebrow{font-family:‘DM Mono’,monospace;font-size:clamp(9px,2.5vw,11px);letter-spacing:.28em;text-transform:uppercase;color:var(–t);display:flex;align-items:center;gap:12px;margin-bottom:clamp(28px,7vw,48px);opacity:0;animation:up .8s .1s forwards;}
+.c-eyebrow::before{content:’’;width:clamp(18px,5vw,32px);height:1px;background:var(–t);flex-shrink:0;}
+.c-eyebrow::after{content:’’;width:6px;height:6px;border-radius:50%;background:var(–t);box-shadow:0 0 12px var(–t);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.1;}}
+
+.c-name{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(76px,21vw,160px);line-height:.88;letter-spacing:.02em;color:var(–w);opacity:0;animation:up 1s .25s forwards;}
+.c-name span{display:block;position:relative;color:transparent;-webkit-text-stroke:clamp(1px,.2vw,2px) var(–g);}
+.c-name span::after{content:attr(data-t);position:absolute;inset:0;background:linear-gradient(105deg,var(–g) 0%,var(–gh) 28%,var(–gp) 50%,var(–gh) 72%,var(–g) 100%);background-size:400% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0;animation:goldShimmer 5s ease-in-out infinite;}
+@keyframes goldShimmer{0%,100%{background-position:0%;}50%{background-position:100%;}}
+
+.c-title{font-family:‘DM Mono’,monospace;font-size:clamp(10px,2.8vw,13px);letter-spacing:.2em;text-transform:uppercase;color:var(–g2);margin-top:clamp(8px,2.5vw,14px);opacity:0;animation:up .8s .5s forwards;}
+
+.cover-mid{position:relative;z-index:2;padding:clamp(28px,7vw,48px) clamp(24px,7vw,48px);opacity:0;animation:up .8s .7s forwards;}
+.c-scr-ref{font-family:‘DM Mono’,monospace;font-size:clamp(9px,2.5vw,11px);letter-spacing:.22em;text-transform:uppercase;color:var(–t);margin-bottom:clamp(10px,3vw,16px);}
+.c-scr-verse{font-size:clamp(21px,5.8vw,32px);font-style:italic;font-weight:400;color:var(–gh);line-height:1.5;border-left:3px solid var(–g);padding-left:clamp(16px,4vw,24px);}
+
+.cover-bot{position:relative;z-index:2;padding:0 clamp(24px,7vw,48px) clamp(40px,9vw,64px);opacity:0;animation:up .8s .9s forwards;}
+.c-mission-lbl{font-family:‘DM Mono’,monospace;font-size:clamp(8px,2.2vw,10px);letter-spacing:.24em;text-transform:uppercase;color:var(–mh);margin-bottom:clamp(8px,2.5vw,12px);}
+.c-mission{font-size:clamp(20px,5.5vw,30px);font-weight:700;color:var(–w);line-height:1.4;margin-bottom:clamp(20px,5vw,28px);}
+.c-mission em{color:var(–th);font-style:normal;}
+
+@keyframes up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══ SECTIONS ══ */
+.sec{position:relative;z-index:1;padding:clamp(56px,13vw,96px) clamp(24px,7vw,48px);border-top:1px solid var(–border);overflow:hidden;}
+.sec-lbl{font-family:‘DM Mono’,monospace;font-size:clamp(9px,2.5vw,11px);letter-spacing:.28em;text-transform:uppercase;color:var(–t);display:flex;align-items:center;gap:10px;margin-bottom:clamp(6px,2vw,10px);}
+.sec-lbl::before{content:’’;width:clamp(16px,4vw,28px);height:1px;background:var(–t);flex-shrink:0;}
+.sec-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(44px,12vw,80px);letter-spacing:.03em;line-height:.9;color:var(–w);margin-bottom:clamp(28px,7vw,44px);}
+
+/* Scripture */
+.scripture{padding:clamp(18px,5vw,26px) clamp(18px,5vw,26px) clamp(18px,5vw,26px) clamp(22px,6vw,32px);border:1px solid var(–gm);background:rgba(200,146,14,.05);margin-bottom:clamp(24px,6vw,36px);position:relative;overflow:hidden;}
+.scripture::before{content:’\201C’;position:absolute;top:-8px;left:10px;font-size:clamp(56px,15vw,88px);color:var(–g);opacity:.18;font-family:Georgia,serif;line-height:1;pointer-events:none;}
+.scr-ref{font-family:‘DM Mono’,monospace;font-size:clamp(8px,2.2vw,10px);letter-spacing:.2em;text-transform:uppercase;color:var(–g);margin-bottom:clamp(6px,2vw,10px);}
+.scr-verse{font-size:clamp(18px,4.8vw,24px);font-style:italic;font-weight:400;color:var(–gh);line-height:1.6;}
+
+/* Body */
+.body{font-size:clamp(17px,4.5vw,22px);font-weight:400;color:var(–c);line-height:1.75;margin-bottom:clamp(20px,5vw,32px);}
+.body strong{color:var(–w);font-weight:700;}
+
+/* ══ THE PROGRAM — big letter pillars ══ */
+.pillar{padding:clamp(22px,6vw,32px) clamp(20px,5.5vw,28px);border:1px solid var(–border);background:rgba(0,0,0,.5);position:relative;overflow:hidden;margin-bottom:3px;}
+.pillar::after{content:’’;position:absolute;top:0;left:0;right:0;height:3px;background:var(–pc,var(–g));}
+.pillar-letter{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(64px,17vw,96px);line-height:1;color:var(–pc,var(–g));margin-bottom:clamp(4px,1.5vw,8px);}
+.pillar-name{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(28px,7.5vw,44px);letter-spacing:.06em;color:var(–w);line-height:1;margin-bottom:clamp(10px,3vw,14px);}
+.pillar-body{font-size:clamp(16px,4.3vw,20px);font-weight:400;color:var(–c);line-height:1.7;}
+
+/* ══ THE TOOLS — cards ══ */
+.tool-card{padding:clamp(20px,5.5vw,28px);border:1px solid var(–border);background:rgba(0,0,0,.45);position:relative;overflow:hidden;margin-bottom:3px;display:flex;gap:clamp(14px,4vw,20px);align-items:flex-start;}
+.tool-card::before{content:’’;position:absolute;left:0;top:0;bottom:0;width:3px;background:var(–tc,var(–t));}
+.tool-icon{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(32px,9vw,48px);line-height:1;color:var(–tc,var(–t));flex-shrink:0;min-width:clamp(32px,9vw,48px);}
+.tool-body{}
+.tool-name{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(22px,6vw,34px);letter-spacing:.05em;color:var(–w);line-height:1;margin-bottom:clamp(6px,2vw,10px);}
+.tool-desc{font-size:clamp(15px,4vw,18px);font-weight:400;color:var(–c);line-height:1.65;}
+
+/* ══ THE TRANSFORMATION ══ */
+.transform-intro{
+font-size:clamp(26px,7vw,40px);
+font-weight:700;font-style:italic;
+color:var(–w);line-height:1.35;
+margin-bottom:clamp(24px,6vw,36px);
+}
+.transform-intro em{color:var(–th);font-style:normal;}
+
+.t-card{padding:clamp(22px,6vw,32px) clamp(20px,5.5vw,28px);border:1px solid var(–border);background:rgba(0,0,0,.45);position:relative;overflow:hidden;margin-bottom:3px;}
+.t-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:var(–tc,var(–t));}
+.t-num{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(11px,3vw,14px);letter-spacing:.14em;color:var(–tc,var(–t));margin-bottom:clamp(6px,2vw,8px);}
+.t-title{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(26px,7vw,40px);letter-spacing:.05em;color:var(–w);line-height:1;margin-bottom:clamp(8px,2.5vw,12px);}
+.t-body{font-size:clamp(15px,4vw,18px);font-weight:400;color:var(–c);line-height:1.65;}
+
+/* 5th card — red hit */
+.t-card-red{border-color:rgba(224,85,85,.25);background:rgba(224,85,85,.04);}
+.t-card-red::before{background:#e05555;}
+.t-card-red .t-num{color:#e05555;}
+.t-card-red .t-title{color:var(–w);}
+
+/* ══ CLOSING ══ */
+.closing{position:relative;z-index:1;padding:clamp(64px,14vw,100px) clamp(24px,7vw,48px);border-top:1px solid var(–border);text-align:center;overflow:hidden;}
+.closing::before{content:’’;position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,196,180,.09) 0%,rgba(200,146,14,.07) 50%,transparent 70%);pointer-events:none;animation:breathe 8s ease-in-out infinite;}
+.closing-inner{position:relative;z-index:1;}
+
+/* Giant closing X watermark */
+.closing-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:‘Bebas Neue’,sans-serif;font-size:min(80vw,480px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(200,146,14,.06);pointer-events:none;user-select:none;animation:breathe 10s ease-in-out infinite;}
+
+.closing-name{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(52px,14vw,88px);letter-spacing:.03em;line-height:.9;color:var(–w);margin-bottom:clamp(8px,2.5vw,12px);}
+.closing-name em{display:block;color:transparent;-webkit-text-stroke:1px var(–g);}
+.closing-title{font-family:‘DM Mono’,monospace;font-size:clamp(9px,2.5vw,12px);letter-spacing:.2em;text-transform:uppercase;color:var(–t);margin-bottom:clamp(32px,8vw,52px);}
+
+.closing-scripture{padding:clamp(20px,5.5vw,28px);border:1px solid var(–gm);background:rgba(200,146,14,.05);max-width:min(480px,90vw);margin:0 auto clamp(24px,6vw,36px);}
+.cls-verse{font-size:clamp(18px,5vw,24px);font-style:italic;font-weight:400;color:var(–gh);line-height:1.6;margin-bottom:clamp(8px,2.5vw,12px);}
+.cls-ref{font-family:‘DM Mono’,monospace;font-size:clamp(8px,2.2vw,10px);letter-spacing:.2em;text-transform:uppercase;color:var(–g);}
+
+.closing-rule{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(–t),var(–g),transparent);margin:0 auto;}
+
+footer{position:relative;z-index:1;background:rgba(0,0,0,.8);border-top:1px solid var(–border);padding:clamp(16px,4vw,22px) clamp(24px,7vw,48px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.fl{font-family:‘DM Mono’,monospace;font-size:clamp(8px,2vw,10px);letter-spacing:.14em;text-transform:uppercase;color:var(–mu);}
+.fr{font-family:‘DM Mono’,monospace;font-size:clamp(8px,2vw,10px);letter-spacing:.14em;text-transform:uppercase;color:var(–t);}
+
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.rv.in{opacity:1;transform:translateY(0);}
+</style>
+
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- ══ COVER ══ -->
+
+<section class="cover">
+  <div class="cover-grid"></div>
+  <div class="cover-glow"></div>
+  <div class="beams"><div class="bm"></div><div class="bm"></div><div class="bm"></div><div class="bm"></div></div>
+  <div class="scan"></div>
+  <div class="topbar"></div>
+
+  <div class="cover-top">
+    <div class="c-eyebrow">Built for the Kingdom</div>
+    <div class="c-name">JP<br><span data-t="Campbell">Campbell</span></div>
+    <div class="c-title">Business Coach &nbsp;·&nbsp; Sales Operator</div>
+  </div>
+
+  <div class="cover-mid">
+    <div class="c-scr-ref">Ephesians 2:10</div>
+    <div class="c-scr-verse">"For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do."</div>
+  </div>
+
+  <div class="cover-bot">
+    <div class="c-mission-lbl">The mission</div>
+    <div class="c-mission">Teaching <em>Kingdom entrepreneurs</em> to build real businesses — without compromising who they are.</div>
+  </div>
+</section>
+
+<!-- ══ THE PROGRAM ══ -->
+
+<section class="sec rv" style="background:radial-gradient(ellipse at 85% 20%,rgba(200,146,14,.09) 0%,transparent 55%) #050505;">
+  <div class="sec-lbl">The program</div>
+  <div class="sec-title">What MSO is.</div>
+
+  <div class="scripture">
+    <div class="scr-ref">Proverbs 24:3–4</div>
+    <div class="scr-verse">"By wisdom a house is built, and through understanding it is established; through knowledge its rooms are filled with rare and beautiful treasures."</div>
+  </div>
+
+  <div class="body">MSO stands for <strong>Marketing, Sales, and Operations.</strong> It also stands for <strong>Manufacturer's Special Order</strong> — because this isn't a generic course. It's a custom-engineered system built to the Manufacturer's specifications for that person's business and calling.</div>
+  <div class="body">Three parts. Built in order. Because you can't close what you haven't attracted, and you can't scale what you haven't built.</div>
+
+  <div class="pillar" style="--pc:var(--t)">
+    <div class="pillar-letter">M</div>
+    <div class="pillar-name">Marketing</div>
+    <div class="pillar-body">Getting the right people in front of you. Who you serve, what you offer, how you show up on Instagram — and how you start real conversations that go somewhere.</div>
+  </div>
+  <div class="pillar" style="--pc:var(--g)">
+    <div class="pillar-letter">S</div>
+    <div class="pillar-name">Sales</div>
+    <div class="pillar-body">Not pressure. Not manipulation. A service-first process where you ask the right questions, find the real need, and offer a real solution. The close is a side effect of doing it right.</div>
+  </div>
+  <div class="pillar" style="--pc:var(--t)">
+    <div class="pillar-letter">O</div>
+    <div class="pillar-name">Operations</div>
+    <div class="pillar-body">Building the backend machine — fulfillment, systems, tracking — so the business runs with consistency and you stop being the bottleneck in your own calling.</div>
+  </div>
+</section>
+
+<!-- ══ THE TOOLS ══ -->
+
+<section class="sec rv" style="background:radial-gradient(ellipse at 15% 70%,rgba(0,196,180,.08) 0%,transparent 55%) #080808;">
+  <div class="sec-lbl">The tools</div>
+  <div class="sec-title">What's in the system.</div>
+
+  <div class="scripture">
+    <div class="scr-ref">Habakkuk 2:2</div>
+    <div class="scr-verse">"Write the vision and make it plain on tablets, that he may run who reads it."</div>
+  </div>
+
+  <div class="body">Every Builder walks away with real tools — not concepts, not theory. Things they can hold, use, and hand off.</div>
+
+  <div class="tool-card" style="--tc:var(--t)">
+    <div class="tool-icon">01</div>
+    <div class="tool-body">
+      <div class="tool-name">The Blueprint</div>
+      <div class="tool-desc">The full curriculum — their personal roadmap through all five build phases, documented and ready to follow.</div>
+    </div>
+  </div>
+  <div class="tool-card" style="--tc:var(--g)">
+    <div class="tool-icon">02</div>
+    <div class="tool-body">
+      <div class="tool-name">The Pathway</div>
+      <div class="tool-desc">A built and live Instagram DM funnel — from first contact to booked appointment, automated and running.</div>
+    </div>
+  </div>
+  <div class="tool-card" style="--tc:var(--t)">
+    <div class="tool-icon">03</div>
+    <div class="tool-body">
+      <div class="tool-name">The POWER Framework</div>
+      <div class="tool-desc">A full sales script for The Consult — written, rehearsed, and internalized. Every objection mapped. Every close trained.</div>
+    </div>
+  </div>
+  <div class="tool-card" style="--tc:var(--g)">
+    <div class="tool-icon">04</div>
+    <div class="tool-body">
+      <div class="tool-name">The Gauges</div>
+      <div class="tool-desc">A live tracking dashboard — ad spend, messages, Consults, closes, cash. Decisions come from data, not gut feelings.</div>
+    </div>
+  </div>
+  <div class="tool-card" style="--tc:var(--t)">
+    <div class="tool-icon">05</div>
+    <div class="tool-body">
+      <div class="tool-name">The Gatekeeper SOP</div>
+      <div class="tool-desc">A documented setter system — so someone else can qualify Candidates and protect the Pathway on their behalf.</div>
+    </div>
+  </div>
+  <div class="tool-card" style="--tc:var(--g)">
+    <div class="tool-icon">06</div>
+    <div class="tool-body">
+      <div class="tool-name">The Receipt</div>
+      <div class="tool-desc">A real case study — documented proof that the system works. The first win that fuels every conversation after it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THE TRANSFORMATION ══ -->
+
+<section class="sec rv" style="background:radial-gradient(ellipse at 75% 30%,rgba(200,146,14,.08) 0%,transparent 55%) #050505;">
+  <div class="sec-lbl">The transformation</div>
+  <div class="sec-title">What changes.</div>
+
+  <div class="scripture">
+    <div class="scr-ref">Proverbs 22:29</div>
+    <div class="scr-verse">"Do you see someone skilled in their work? They will serve before kings; they will not serve before officials of low rank."</div>
+  </div>
+
+  <div class="transform-intro">This isn't about<br><em>hustle harder.</em><br>It's about build smarter.</div>
+
+  <div class="t-card" style="--tc:var(--t)">
+    <div class="t-num">Before → After</div>
+    <div class="t-title">Guessing → Data</div>
+    <div class="t-body">They stop making decisions based on feelings and start reading real numbers every morning. The Gauges eliminate the guesswork.</div>
+  </div>
+  <div class="t-card" style="--tc:var(--g)">
+    <div class="t-num">Before → After</div>
+    <div class="t-title">Chasing → Qualifying</div>
+    <div class="t-body">They stop chasing anyone who looks like a prospect and start attracting real Candidates — people who already want what they offer.</div>
+  </div>
+  <div class="t-card" style="--tc:var(--t)">
+    <div class="t-num">Before → After</div>
+    <div class="t-title">Pitching → Serving</div>
+    <div class="t-body">The Consult isn't a sales call. It's a diagnostic. They ask the right questions, find the real need, and serve — the close follows naturally.</div>
+  </div>
+  <div class="t-card" style="--tc:var(--g)">
+    <div class="t-num">Before → After</div>
+    <div class="t-title">Bottleneck → System</div>
+    <div class="t-body">They stop being the thing that breaks when they step away. The operations are documented, the Gatekeeper is trained, the machine runs.</div>
+  </div>
+  <div class="t-card t-card-red">
+    <div class="t-num">The real win</div>
+    <div class="t-title">Fraud → Operator</div>
+    <div class="t-body">They stop feeling like they got lucky and start operating like someone who was built for this. The framework doesn't just change their revenue — it changes how they walk into every room, every call, every conversation. They become the most dangerous version of themselves: someone who can close, who can serve, and who answers to a mission bigger than the money.</div>
+  </div>
+</section>
+
+<!-- ══ THE KINGDOM DIFFERENCE ══ -->
+
+<section class="sec rv" style="background:radial-gradient(ellipse at 30% 60%,rgba(0,196,180,.07) 0%,transparent 55%) #080808;">
+  <div class="sec-lbl">Why it matters</div>
+  <div class="sec-title">The Kingdom difference.</div>
+
+  <div class="scripture">
+    <div class="scr-ref">Colossians 3:23</div>
+    <div class="scr-verse">"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."</div>
+  </div>
+
+  <div class="body">Most sales programs teach you to close at any cost. MSO-X teaches you to <strong>serve first.</strong> The same tactics that the world uses to manipulate — we reexamine, redeem, and rebuild for the Kingdom.</div>
+  <div class="body">You can use it <strong>without compromising who you are.</strong> Every tool, every script, every tactic — filtered through the Word and held accountable to the mission.</div>
+
+  <div class="scripture" style="border-color:var(--tm);background:rgba(0,196,180,.05);">
+    <div class="scr-ref" style="color:var(--t);">Matthew 10:16</div>
+    <div class="scr-verse" style="color:var(--th);">"Be as shrewd as snakes and as innocent as doves."</div>
+  </div>
+
+  <div class="body">That verse is permission. God never said to be weak in business. He said to be wise — and pure in motive. MSO-X is what it looks like when those two things live in the same system.</div>
+</section>
+
+<!-- ══ CLOSING ══ -->
+
+<section class="closing rv">
+  <div class="closing-wm">X</div>
+  <div class="closing-inner">
+    <div class="sec-lbl" style="justify-content:center;margin-bottom:clamp(16px,4vw,24px);">MSO-X &nbsp;·&nbsp; Built for the Kingdom</div>
+    <div class="closing-name">JP<br><em>Campbell</em></div>
+    <div class="closing-title">Business Coach &nbsp;·&nbsp; Sales Operator</div>
+
+```
+<div class="closing-scripture">
+  <div class="cls-verse">"By wisdom a house is built… through knowledge its rooms are filled with rare and beautiful treasures."</div>
+  <div class="cls-ref">Proverbs 24:3–4</div>
+</div>
+
+<div class="closing-rule"></div>
+```
+
+  </div>
+</section>
+
+<footer>
+  <div class="fl">MSOX-ChurchAsset-v2 &nbsp;·&nbsp; April 2026</div>
+  <div class="fr">Built for the Kingdom</div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
